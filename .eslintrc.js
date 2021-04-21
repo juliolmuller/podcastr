@@ -17,6 +17,7 @@ module.exports = {
     'react-hooks',
   ],
   rules: {
+    'camelcase': ['error', { allow: ['published_at'] }],
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debug': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'react/jsx-closing-bracket-location': 'error',
