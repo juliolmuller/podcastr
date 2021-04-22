@@ -1,5 +1,6 @@
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
 import api from '../services/api'
 import { Podcast } from '../types'
 import styles from './index.module.scss'
@@ -28,7 +29,9 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
               />
 
               <div className={styles.podcastDetails}>
-                <a href="#">{podcast.title}</a>
+                <Link href={`/podcasts/${podcast.id}`}>
+                  <a>{podcast.title}</a>
+                </Link>
                 <p title={podcast.members}>{podcast.members}</p>
                 <span>{podcast.publishedAt}</span>
                 <span>{podcast.durationAsString}</span>
@@ -48,6 +51,7 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
         </header>
         <table cellSpacing="0">
           <thead>
+            <tr>
               <th></th>
               <th>Podcast</th>
               <th>Integrantes</th>
@@ -68,10 +72,20 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
                     width="120"
                   />
                 </td>
-                <td><a href="#">{podcast.title}</a></td>
-                <td>{podcast.members}</td>
-                <td style={{ width: 130 }}>{podcast.publishedAt}</td>
-                <td>podcast.durationAsString</td>
+                <td>
+                  <Link href={`/podcasts/${podcast.id}`}>
+                    <a>{podcast.title}</a>
+                  </Link>
+                </td>
+                <td>
+                  {podcast.members}
+                </td>
+                <td style={{ width: 130 }}>
+                  {podcast.publishedAt}
+                </td>
+                <td>
+                  {podcast.durationAsString}
+                </td>
                 <td>
                   <button type="button" className={styles.playButton}>
                     <img src="/img/play-green.svg" alt="reproduzir item" />
