@@ -48,12 +48,13 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
         </header>
         <table cellSpacing="0">
           <thead>
-            <th></th>
-            <th>Podcast</th>
-            <th>Integrantes</th>
-            <th>Publicado em</th>
-            <th>Duração</th>
-            <th></th>
+              <th></th>
+              <th>Podcast</th>
+              <th>Integrantes</th>
+              <th>Publicado em</th>
+              <th>Duração</th>
+              <th></th>
+            </tr>
           </thead>
           <tbody>
             {additionalPodcasts.map((podcast) => (
