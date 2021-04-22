@@ -1,5 +1,6 @@
-import querystring from 'querystring'
 import { GetStaticProps } from 'next'
+import api from '../services/api'
+import { Podcast } from '../types'
 
 type HomeProps = {
   podcasts: Podcast[]
@@ -10,7 +11,7 @@ function Home({ podcasts }: HomeProps) {
     <>
       <h1>Hello, there!</h1>
       {podcasts.map((podcast) => (
-        <p>{podcast.title}</p>
+        <p key={podcast.id}>{podcast.publishedAt} {podcast.durationAsString}</p>
       ))}
     </>
   )
@@ -18,16 +19,16 @@ function Home({ podcasts }: HomeProps) {
 
 const getStaticProps: GetStaticProps<HomeProps> = async () => {
   const SECONDS_TO_REVALIDATE = 300
-  const params = querystring.stringify({
-    _limit: 12,
-    _sort: 'published_at',
-    _order: 'desc',
+  const { data } = await api.get<Podcast[]>('/podcasts', {
+    params: {
+      _limit: 12,
+      _sort: 'published_at',
+      _order: 'desc',
+    },
   })
-  const response = await fetch(`${process.env.NEXT_PUBLIC_PODCAST_API}/podcasts?${params}`)
-  const podcasts = await response.json()
 
   return {
-    props: { podcasts },
+    props: { podcasts: data },
     revalidate: SECONDS_TO_REVALIDATE,
   }
 }
