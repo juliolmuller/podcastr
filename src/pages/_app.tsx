@@ -1,17 +1,20 @@
 import '../assets/global.scss'
 import Header from '../components/Header'
 import Player from '../components/Player'
+import ContextProvider from '../contexts'
 import styles from '../assets/app.module.scss'
 
 function App({ Component, pageProps }) {
   return (
     <div className={styles.wrapper}>
-      <main>
-        <Header />
-        <Component {...pageProps} />
-      </main>
+      <ContextProvider>
+        <main>
+          <Header />
+          <Component {...pageProps} />
+        </main>
 
-      <Player />
+        <Player />
+      </ContextProvider>
     </div>
   )
 }
