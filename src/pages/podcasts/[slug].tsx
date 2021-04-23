@@ -46,8 +46,15 @@ function PodcastDetails({ podcast }: PodcastDetailsProps) {
 }
 
 const getStaticPaths: GetStaticPaths = async () => {
+  const { data } = await api.get<Podcast[]>('/podcasts')
+  const paths = data.map((podcast) => ({
+    params: {
+      slug: podcast.id,
+    },
+  }))
+
   return {
-    paths: [],
+    paths,
     fallback: 'blocking',
   }
 }
