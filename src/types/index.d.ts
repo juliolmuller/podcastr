@@ -1,6 +1,6 @@
 
 export interface RawPodcast {
-  id: number
+  id: string
   title: string
   members: string
   thumbnail: string
@@ -14,7 +14,7 @@ export interface RawPodcast {
 }
 
 export interface Podcast {
-  id: number
+  id: string
   title: string
   members: string
   thumbnail: string
