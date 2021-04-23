@@ -1,8 +1,9 @@
 import { GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
-import api from '../services/api'
 import { Podcast } from '../types'
+import api from '../services/api'
+import { usePlayer } from '../hooks'
 import styles from './index.module.scss'
 
 type HomeProps = {
@@ -11,6 +12,8 @@ type HomeProps = {
 }
 
 function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
+  const { addToPlaylist } = usePlayer()
+
   return (
     <div className={styles.container}>
       <section className={styles.latestPodcasts}>
@@ -37,7 +40,11 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
                 <span>{podcast.durationAsString}</span>
               </div>
 
-              <button type="button" className={styles.playButton}>
+              <button
+                type="button"
+                className={styles.playButton}
+                onClick={() => addToPlaylist(podcast)}
+              >
                 <img src="/img/play-green.svg" alt="reproduzir item" />
               </button>
             </li>
@@ -87,7 +94,11 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
                   {podcast.durationAsString}
                 </td>
                 <td>
-                  <button type="button" className={styles.playButton}>
+                  <button
+                    type="button"
+                    className={styles.playButton}
+                    onClick={() => addToPlaylist(podcast)}
+                  >
                     <img src="/img/play-green.svg" alt="reproduzir item" />
                   </button>
                 </td>
