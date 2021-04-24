@@ -1,11 +1,30 @@
+import { useState } from 'react'
 import Image from 'next/image'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
 import { usePlayer } from '../../hooks'
+import { convertSecondsToTimeString } from '../../utils/date-time'
 import styles from './styles.module.scss'
 
 function Player() {
-  const { currentPodcast, ...player } = usePlayer()
+  const { audioRef, currentPodcast, ...player } = usePlayer()
+  const [currentTime, setCurrentTime] = useState(0)
+  const remainingTime = (currentPodcast?.duration ?? 0) - currentTime
+
+  function handlePodcastIsLoaded() {
+    audioRef.current.currentTime = 0
+
+    audioRef.current.ontimeupdate = () => {
+      setCurrentTime(Math.floor(audioRef.current.currentTime))
+    }
+  }
+
+  function handleSeek(time: number) {
+    if (time < currentPodcast.duration - 3) {
+      audioRef.current.currentTime = time
+      setCurrentTime(time)
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -34,31 +53,35 @@ function Player() {
 
       {currentPodcast && (
         <audio
-          ref={player.audioRef}
+          ref={audioRef}
           src={currentPodcast.url}
+          loop={player.isLooping}
           onPause={player.onPause}
           onPlay={player.onPlay}
-          loop={player.isLooping}
+          onLoadedMetadata={handlePodcastIsLoaded}
+          onEnded={player.nextPodcast}
           autoPlay
         />
       )}
 
       <footer className={currentPodcast ? '' : styles.empty}>
         <div className={styles.progressBar}>
-          <span>00:00</span>
+          <span>{convertSecondsToTimeString(currentTime)}</span>
           <div className={styles.slider}>
             {currentPodcast ? (
               <Slider
+                value={currentTime}
+                max={currentPodcast?.duration}
                 trackStyle={{ backgroundColor: '#04d361' }}
                 railStyle={{ backgroundColor: '#9f75ff' }}
                 handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
-                onChange={console.log}
+                onChange={handleSeek}
               />
             ) : (
               <div className={styles.emptySlider} />
             )}
           </div>
-          <span>00:00</span>
+          <span>{convertSecondsToTimeString(remainingTime)}</span>
         </div>
 
         <div className={styles.controls}>
