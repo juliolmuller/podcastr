@@ -1,4 +1,5 @@
 import { GetStaticPaths, GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Podcast } from '../../types'
@@ -15,6 +16,10 @@ function PodcastDetails({ podcast }: PodcastDetailsProps) {
 
   return (
     <article className={styles.container}>
+      <Head>
+        <title>{podcast.title} | PodShare</title>
+      </Head>
+
       <div className={styles.thumbnail}>
         <Link href="/">
           <button type="button" title="Voltar">

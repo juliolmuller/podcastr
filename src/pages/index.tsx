@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next'
+import Head from 'next/head'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Podcast } from '../types'
@@ -16,6 +17,10 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
 
   return (
     <div className={styles.container}>
+      <Head>
+        <title>Home | PodShare</title>
+      </Head>
+
       <section className={styles.latestPodcasts}>
         <header>
           <h2>Últimos lançamentos</h2>
