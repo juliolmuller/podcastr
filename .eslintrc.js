@@ -6,7 +6,6 @@ module.exports = {
   extends: [
     '@lacussoft/typescript',
   ],
-  ignorePatterns: [],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
