@@ -2,6 +2,7 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Podcast } from '../../types'
+import { usePlayer } from '../../hooks'
 import api from '../../services/api'
 import styles from './styles.module.scss'
 
@@ -10,6 +11,8 @@ type PodcastDetailsProps = {
 }
 
 function PodcastDetails({ podcast }: PodcastDetailsProps) {
+  const { addToPlaylist } = usePlayer()
+
   return (
     <article className={styles.container}>
       <div className={styles.thumbnail}>
@@ -25,7 +28,7 @@ function PodcastDetails({ podcast }: PodcastDetailsProps) {
           height="160"
           width="700"
         />
-        <button type="button" title="Tocar">
+        <button type="button" title="Tocar" onClick={() => addToPlaylist(podcast)}>
           <img src="/img/play.svg" alt="tocar podcast" />
         </button>
       </div>
