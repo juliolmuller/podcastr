@@ -6,10 +6,11 @@
   "author": "Julio L. Muller",
   "scripts": {
     "postinstall": "node -e \"require('fs').existsSync('.env') || require('fs').copyFileSync('.env.example', '.env')\"",
-    "dev-server": "json-server server.json --watch --delay 800 --port 8081",
     "dev": "next dev --port 8080",
     "build": "next build",
-    "start": "next start"
+    "prod": "next start --port 8080",
+    "start": "node server.js",
+    "heroku-postbuild": "echo Skipping \"npm run build\""
   },
   "dependencies": {
     "axios": "~0.21.1",
