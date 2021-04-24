@@ -1,5 +1,5 @@
 import axios, { AxiosResponse } from 'axios'
-import transformPodcast from '../utils/transform-podcast'
+import transformPodcast from './podcast-transformer'
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_PODCAST_API,

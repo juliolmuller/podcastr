@@ -1,6 +1,5 @@
 import { format, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
-import { RawPodcast, Podcast } from '../types'
 
 const SECONDS_IN_A_MINUTE = 60
 const SECONDS_IN_AN_HOUR = 3600
@@ -22,18 +21,7 @@ function convertDateToFriendlyString(isoDate: string) {
   })
 }
 
-function transformPodcast(rawPodcast: RawPodcast): Podcast {
-  return {
-    id: rawPodcast.id,
-    title: rawPodcast.title,
-    members: rawPodcast.members,
-    thumbnail: rawPodcast.thumbnail,
-    description: rawPodcast.description,
-    publishedAt: convertDateToFriendlyString(rawPodcast.published_at),
-    durationAsString: convertSecondsToTimeString(rawPodcast.file.duration),
-    duration: rawPodcast.file.duration,
-    url: rawPodcast.file.url,
-  }
+export {
+  convertSecondsToTimeString,
+  convertDateToFriendlyString,
 }
-
-export default transformPodcast
