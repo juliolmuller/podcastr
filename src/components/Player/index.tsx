@@ -38,6 +38,7 @@ function Player() {
           src={currentPodcast.url}
           onPause={player.onPause}
           onPlay={player.onPlay}
+          loop={player.isLooping}
           autoPlay
         />
       )}
@@ -63,9 +64,9 @@ function Player() {
         <div className={styles.controls}>
           <button
             type="button"
-            title="Modo aleatório"
+            title="Embaralhar playlist"
             disabled={!currentPodcast}
-            onClick={player.toggleRandom}
+            onClick={player.shufflePlaylist}
           >
             <img src="/img/shuffle.svg" alt="modo aleatório" />
           </button>
@@ -102,6 +103,7 @@ function Player() {
             type="button"
             title="Repetir podcast"
             disabled={!currentPodcast}
+            className={player.isLooping ? styles.isActive : ''}
             onClick={player.toggleLoop}
           >
             <img src="/img/repeat.svg" alt="repetir atual" />

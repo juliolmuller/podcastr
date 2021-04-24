@@ -1,4 +1,5 @@
 import { createContext, MutableRefObject, useRef, useState } from 'react'
+import shuffle from 'lodash.shuffle'
 import { Podcast } from '../types'
 
 type PlayerContextInterface = {
@@ -6,13 +7,12 @@ type PlayerContextInterface = {
   hasNextPodcast: boolean
   currentPodcast: Podcast
   isPlaying: boolean
-  isRandom: boolean
   isLooping: boolean
   audioRef: MutableRefObject<HTMLAudioElement>
   addToPlaylist: (podcast: Podcast) => void
   togglePlayPodcast: () => void
-  toggleRandom: () => void
   toggleLoop: () => void
+  shufflePlaylist: () => void
   previousPodcast: () => void
   nextPodcast: () => void
   onPause: () => void
@@ -23,7 +23,6 @@ const PlayerContext = createContext({} as PlayerContextInterface)
 
 function PlayerProvider({ children }) {
   const audioRef = useRef<HTMLAudioElement>()
-  const [isRandom, setIsRandom] = useState(false)
   const [isLooping, setIsLooping] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
   const [playlist, setPlaylist] = useState<Podcast[]>([])
@@ -45,8 +44,15 @@ function PlayerProvider({ children }) {
     setIsPlaying((currValue) => !currValue)
   }
 
-  function toggleRandom() {
-    setIsRandom((currValue) => !currValue)
+  function shufflePlaylist() {
+    if (playlist.length) {
+      playlist.splice(currentIndex, 1)
+      const newPlaylist = shuffle(playlist)
+      newPlaylist.unshift(currentPodcast)
+      setPlaylist(newPlaylist)
+      setCurrentIndex(0)
+      setIsPlaying(true)
+    }
   }
 
   function toggleLoop() {
@@ -54,7 +60,6 @@ function PlayerProvider({ children }) {
   }
 
   function previousPodcast() {
-    console.log(hasPreviousPodcast)
     hasPreviousPodcast && setCurrentIndex((currValue) => currValue - 1)
   }
 
@@ -78,11 +83,10 @@ function PlayerProvider({ children }) {
         hasNextPodcast,
         currentPodcast,
         isPlaying,
-        isRandom,
         isLooping,
         audioRef,
         togglePlayPodcast,
-        toggleRandom,
+        shufflePlaylist,
         toggleLoop,
         previousPodcast,
         nextPodcast,

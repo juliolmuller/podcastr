@@ -25,10 +25,11 @@
   footer {
     align-self: stretch;
 
-    &.empty, button:disabled {
-      opacity: 0.5;
+    &.empty,
+    &:not(.empty) button:disabled {
+      opacity: 0.4;
 
-      & * {
+      &:disabled {
         cursor: default;
       }
     }
@@ -112,6 +113,14 @@
 
     &:not(:disabled):hover {
       filter: brightness(0.8);
+    }
+
+    &.isActive {
+      filter: invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+
+      &:hover {
+        filter: brightness(0.6) invert(0.35) sepia(1) saturate(3) hue-rotate(100deg);
+      }
     }
 
     &.playButton {
