@@ -2,14 +2,15 @@ import { useState } from 'react'
 import Image from 'next/image'
 import Slider from 'rc-slider'
 import 'rc-slider/assets/index.css'
+import { Podcast } from '../../types'
 import { usePlayer } from '../../hooks'
 import { convertSecondsToTimeString } from '../../utils/date-time'
 import styles from './styles.module.scss'
 
 function Player() {
-  const { audioRef, currentPodcast, ...player } = usePlayer()
+  const { audioRef, ...player } = usePlayer<Podcast>()
   const [currentTime, setCurrentTime] = useState(0)
-  const remainingTime = (currentPodcast?.duration ?? 0) - currentTime
+  const remainingTime = (player.current?.duration ?? 0) - currentTime
 
   function handlePodcastIsLoaded() {
     audioRef.current.currentTime = 0
@@ -20,7 +21,7 @@ function Player() {
   }
 
   function handleSeek(time: number) {
-    if (time < currentPodcast.duration - 3) {
+    if (time < player.current.duration - 2) {
       audioRef.current.currentTime = time
       setCurrentTime(time)
     }
@@ -33,17 +34,17 @@ function Player() {
         <span>Tocando agora:</span>
       </header>
 
-      {currentPodcast ? (
+      {player.current ? (
         <div className={styles.podcastDetails}>
           <Image
-            src={currentPodcast.thumbnail}
+            src={player.current.thumbnail}
             alt="capa do podcast"
             objectFit="cover"
             height="592"
             width="592"
           />
-          <strong>{currentPodcast.title}</strong>
-          <span>{currentPodcast.members}</span>
+          <strong>{player.current.title}</strong>
+          <span>{player.current.members}</span>
         </div>
       ) : (
         <div className={styles.emptyPlayer}>
@@ -51,27 +52,23 @@ function Player() {
         </div>
       )}
 
-      {currentPodcast && (
+      {player.current && (
         <audio
           ref={audioRef}
-          src={currentPodcast.url}
-          loop={player.isLooping}
-          onPause={player.onPause}
-          onPlay={player.onPlay}
+          src={player.current.url}
           onLoadedMetadata={handlePodcastIsLoaded}
-          onEnded={player.nextPodcast}
           autoPlay
         />
       )}
 
-      <footer className={currentPodcast ? '' : styles.empty}>
+      <footer className={player.current ? '' : styles.empty}>
         <div className={styles.progressBar}>
           <span>{convertSecondsToTimeString(currentTime)}</span>
           <div className={styles.slider}>
-            {currentPodcast ? (
+            {player.current ? (
               <Slider
                 value={currentTime}
-                max={currentPodcast?.duration}
+                max={player.current?.duration}
                 trackStyle={{ backgroundColor: '#04d361' }}
                 railStyle={{ backgroundColor: '#9f75ff' }}
                 handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
@@ -88,25 +85,25 @@ function Player() {
           <button
             type="button"
             title="Embaralhar playlist"
-            disabled={!currentPodcast}
-            onClick={player.shufflePlaylist}
+            disabled={!player.current}
+            onClick={player.shuffle}
           >
             <img src="/img/shuffle.svg" alt="modo aleatório" />
           </button>
           <button
             type="button"
             title="Podcast anterior"
-            disabled={!player.hasPreviousPodcast}
-            onClick={player.previousPodcast}
+            disabled={!player.hasPrevious}
+            onClick={player.playPrevious}
           >
             <img src="/img/play-previous.svg" alt="tocar anterior" />
           </button>
           <button
             type="button"
             title="Tocar/Pausar"
-            disabled={!currentPodcast}
+            disabled={!player.current}
             className={styles.playButton}
-            onClick={player.togglePlayPodcast}
+            onClick={player.togglePlay}
           >
             {player.isPlaying ? (
               <img src="/img/pause.svg" alt="pausar" />
@@ -117,15 +114,15 @@ function Player() {
           <button
             type="button"
             title="Próximo podcast"
-            disabled={!player.hasNextPodcast}
-            onClick={player.nextPodcast}
+            disabled={!player.hasNext}
+            onClick={player.playNext}
           >
             <img src="/img/play-next.svg" alt="tocar próximo" />
           </button>
           <button
             type="button"
             title="Repetir podcast"
-            disabled={!currentPodcast}
+            disabled={!player.current}
             className={player.isLooping ? styles.isActive : ''}
             onClick={player.toggleLoop}
           >

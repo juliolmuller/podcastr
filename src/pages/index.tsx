@@ -13,7 +13,7 @@ type HomeProps = {
 }
 
 function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
-  const { addToPlaylist } = usePlayer()
+  const { addToPlaylist } = usePlayer<Podcast>()
 
   return (
     <div className={styles.container}>
@@ -48,7 +48,7 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
               <button
                 type="button"
                 className={styles.playButton}
-                onClick={() => addToPlaylist(podcast)}
+                onClick={() => addToPlaylist(podcast, true)}
               >
                 <img src="/img/play-green.svg" alt="reproduzir item" />
               </button>
@@ -102,7 +102,7 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
                   <button
                     type="button"
                     className={styles.playButton}
-                    onClick={() => addToPlaylist(podcast)}
+                    onClick={() => addToPlaylist(podcast, true)}
                   >
                     <img src="/img/play-green.svg" alt="reproduzir item" />
                   </button>

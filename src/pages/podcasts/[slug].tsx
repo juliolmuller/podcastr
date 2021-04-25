@@ -12,7 +12,7 @@ type PodcastDetailsProps = {
 }
 
 function PodcastDetails({ podcast }: PodcastDetailsProps) {
-  const { addToPlaylist } = usePlayer()
+  const { addToPlaylist } = usePlayer<Podcast>()
 
   return (
     <article className={styles.container}>
@@ -33,7 +33,7 @@ function PodcastDetails({ podcast }: PodcastDetailsProps) {
           height="160"
           width="700"
         />
-        <button type="button" title="Tocar" onClick={() => addToPlaylist(podcast)}>
+        <button type="button" title="Tocar" onClick={() => addToPlaylist(podcast, true)}>
           <img src="/img/play.svg" alt="tocar podcast" />
         </button>
       </div>

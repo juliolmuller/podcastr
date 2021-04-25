@@ -1,105 +1,124 @@
-import { createContext, MutableRefObject, useRef, useState } from 'react'
-import shuffle from 'lodash.shuffle'
-import { Podcast } from '../types'
+import { createContext, MutableRefObject, useEffect, useRef, useState } from 'react'
+import shuffleCollection from 'lodash.shuffle'
 
-type PlayerContextInterface = {
-  hasPreviousPodcast: boolean
-  hasNextPodcast: boolean
-  currentPodcast: Podcast
+export interface PlayerInterface<T> {
+  audioRef: MutableRefObject<HTMLAudioElement>
   isPlaying: boolean
   isLooping: boolean
-  audioRef: MutableRefObject<HTMLAudioElement>
-  addToPlaylist: (podcast: Podcast) => void
-  togglePlayPodcast: () => void
+  hasPrevious: boolean
+  hasNext: boolean
+  playlist: T[]
+  current: T
+  CreatePlaylist: (tracks: T[], startIndex?: number) => void
+  addToPlaylist: (tracks: T, immediate?: boolean) => void
+  playPrevious: () => void
+  playNext: () => void
+  togglePlay: () => void
   toggleLoop: () => void
-  shufflePlaylist: () => void
-  previousPodcast: () => void
-  nextPodcast: () => void
-  onPause: () => void
-  onPlay: () => void
+  shuffle: () => void
 }
 
-const PlayerContext = createContext({} as PlayerContextInterface)
+export const PlayerContext = createContext({} as PlayerInterface<any>)
 
-function PlayerProvider({ children }) {
+export function PlayerProvider({ children }) {
   const audioRef = useRef<HTMLAudioElement>()
+  const [playlist, setPlaylist] = useState([])
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const currentTrack = playlist[currentIndex] ?? null
+  const hasPrevious = Boolean(playlist[currentIndex - 1])
+  const hasNext = Boolean(playlist[currentIndex + 1])
   const [isLooping, setIsLooping] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [playlist, setPlaylist] = useState<Podcast[]>([])
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const currentPodcast = playlist[currentIndex] ?? null
-  const hasPreviousPodcast = Boolean(playlist[currentIndex - 1])
-  const hasNextPodcast = Boolean(playlist[currentIndex + 1])
 
-  function addToPlaylist(podcast: Podcast) {
-    setPlaylist([...playlist, podcast])
-    setCurrentIndex(playlist.length)
-    setIsPlaying(true)
+  function CreatePlaylist<T>(tracks: T[], startIndex?: number) {
+    setCurrentIndex(startIndex ?? 0)
+    setIsPlaying(!isNaN(startIndex))
+    setPlaylist(tracks)
   }
 
-  function togglePlayPodcast() {
-    isPlaying
-      ? audioRef.current?.pause()
-      : audioRef.current?.play()
-    setIsPlaying((currValue) => !currValue)
-  }
+  function addToPlaylist<T>(track: T, immediate = false) {
+    setPlaylist([...playlist, track])
 
-  function shufflePlaylist() {
-    if (playlist.length) {
-      playlist.splice(currentIndex, 1)
-      const newPlaylist = shuffle(playlist)
-      newPlaylist.unshift(currentPodcast)
-      setPlaylist(newPlaylist)
-      setCurrentIndex(0)
+    if (immediate) {
+      setCurrentIndex(playlist.length)
       setIsPlaying(true)
     }
+  }
+
+  function togglePlay() {
+    setIsPlaying((currValue) => !currValue)
   }
 
   function toggleLoop() {
     setIsLooping((currValue) => !currValue)
   }
 
-  function previousPodcast() {
-    hasPreviousPodcast && setCurrentIndex((currValue) => currValue - 1)
+  function playPrevious() {
+    hasPrevious && setCurrentIndex((currValue) => currValue - 1)
   }
 
-  function nextPodcast() {
-    hasNextPodcast && setCurrentIndex((currValue) => currValue + 1)
+  function playNext() {
+    hasNext && setCurrentIndex((currValue) => currValue + 1)
   }
 
-  function onPause() {
-    setIsPlaying(false)
+  function shuffle() {
+    if (playlist.length) {
+      playlist.splice(currentIndex, 1)
+      const newPlaylist = shuffleCollection(playlist)
+      newPlaylist.unshift(currentTrack)
+      setPlaylist(newPlaylist)
+      setCurrentIndex(0)
+      setIsPlaying(true)
+    }
   }
 
-  function onPlay() {
-    setIsPlaying(true)
-  }
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.loop = isLooping
+      isPlaying
+        ? audioRef.current.play()
+        : audioRef.current.pause()
+    }
+  }, [isPlaying, isLooping])
+
+  useEffect(() => { // eslint-disable-line consistent-return
+    if (audioRef.current) {
+      const onPlay = () => setIsPlaying(true)
+      const onPause = () => setIsPlaying(false)
+      const onEnded = () => playNext()
+
+      audioRef.current.addEventListener('play', onPlay)
+      audioRef.current.addEventListener('pause', onPause)
+      audioRef.current.addEventListener('ended', onEnded)
+
+      return () => {
+        audioRef.current.removeEventListener('play', onPlay)
+        audioRef.current.removeEventListener('pause', onPause)
+        audioRef.current.removeEventListener('ended', onEnded)
+      }
+    }
+  }, [])
 
   return (
     <PlayerContext.Provider
       value={{
-        addToPlaylist,
-        hasPreviousPodcast,
-        hasNextPodcast,
-        currentPodcast,
+        audioRef,
         isPlaying,
         isLooping,
-        audioRef,
-        togglePlayPodcast,
-        shufflePlaylist,
+        hasPrevious,
+        hasNext,
+        playlist,
+        current: currentTrack,
+        CreatePlaylist,
+        addToPlaylist,
+        playPrevious,
+        playNext,
+        togglePlay,
         toggleLoop,
-        previousPodcast,
-        nextPodcast,
-        onPause,
-        onPlay,
+        shuffle,
       }}
     >
       {children}
     </PlayerContext.Provider>
   )
-}
-
-export {
-  PlayerContext,
-  PlayerProvider,
 }
