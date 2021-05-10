@@ -7,8 +7,10 @@
   "scripts": {
     "postinstall": "node -e \"require('fs').existsSync('.env') || require('fs').copyFileSync('.env.example', '.env')\"",
     "dev": "next dev --port 8080",
-    "build": "next build",
+    "development": "npm run dev",
     "prod": "next start --port 8080",
+    "production": "npm run prod",
+    "build": "next build",
     "start": "node server.js",
     "heroku-postbuild": "echo Skipping \"npm run build\""
   },
