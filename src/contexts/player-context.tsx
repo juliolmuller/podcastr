@@ -83,21 +83,22 @@ export function PlayerProvider({ children }) {
 
   useEffect(() => { // eslint-disable-line consistent-return
     if (audioRef.current) {
+      const ref = audioRef.current
       const onPlay = () => setIsPlaying(true)
       const onPause = () => setIsPlaying(false)
       const onEnded = () => playNext()
 
-      audioRef.current.addEventListener('play', onPlay)
-      audioRef.current.addEventListener('pause', onPause)
-      audioRef.current.addEventListener('ended', onEnded)
+      ref.addEventListener('play', onPlay)
+      ref.addEventListener('pause', onPause)
+      ref.addEventListener('ended', onEnded)
 
       return () => {
-        audioRef.current.removeEventListener('play', onPlay)
-        audioRef.current.removeEventListener('pause', onPause)
-        audioRef.current.removeEventListener('ended', onEnded)
+        ref.removeEventListener('play', onPlay)
+        ref.removeEventListener('pause', onPause)
+        ref.removeEventListener('ended', onEnded)
       }
     }
-  }, [])
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <PlayerContext.Provider
