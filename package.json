@@ -11,6 +11,7 @@
     "prod": "next start --port 8080",
     "production": "npm run prod",
     "build": "next build",
+    "lint": "eslint src/ --fix",
     "start": "node server.js",
     "heroku-postbuild": "echo Skipping \"npm run build\""
   },
