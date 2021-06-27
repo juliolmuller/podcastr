@@ -1,18 +1,39 @@
-import { GetStaticProps } from 'next'
+/* eslint-disable @next/next/no-img-element */
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
-import { Podcast } from '../types'
-import api from '../services/api'
-import { usePlayer } from '../hooks'
-import styles from './index.module.scss'
+import Image from 'next/image'
+import api from '~/services/api'
+import { usePlayer } from '~/hooks'
+import styles from './styles.module.scss'
+
+import type { GetStaticProps } from 'next'
+import type { Podcast } from '~/types'
 
 type HomeProps = {
   latestPodcasts: Podcast[]
   additionalPodcasts: Podcast[]
 }
 
-function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
+export const getStaticProps: GetStaticProps<HomeProps> = async () => {
+  const SECONDS_TO_REVALIDATE = 300
+  const { data } = await api.get<Podcast[]>('/podcasts', {
+    params: {
+      _limit: 12,
+      _sort: 'published_at',
+      _order: 'desc',
+    },
+  })
+
+  return {
+    revalidate: SECONDS_TO_REVALIDATE,
+    props: {
+      latestPodcasts: data.slice(0, 2),
+      additionalPodcasts: data.slice(2),
+    },
+  }
+}
+
+function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
   const { addToPlaylist } = usePlayer<Podcast>()
 
   return (
@@ -116,26 +137,4 @@ function Home({ latestPodcasts, additionalPodcasts }: HomeProps) {
   )
 }
 
-const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const SECONDS_TO_REVALIDATE = 300
-  const { data } = await api.get<Podcast[]>('/podcasts', {
-    params: {
-      _limit: 12,
-      _sort: 'published_at',
-      _order: 'desc',
-    },
-  })
-
-  return {
-    revalidate: SECONDS_TO_REVALIDATE,
-    props: {
-      latestPodcasts: data.slice(0, 2),
-      additionalPodcasts: data.slice(2),
-    },
-  }
-}
-
-export {
-  Home as default,
-  getStaticProps,
-}
+export default HomePage
