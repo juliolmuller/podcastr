@@ -7,7 +7,7 @@ function Header() {
 
   return (
     <header className={styles.container}>
-      <img src="/img/logo.svg" alt="logo PodShare" />
+      <img src="/img/logo.svg" alt="logo Podcastr" />
 
       <p>O melhor para vc ouvir, sempre!</p>
 

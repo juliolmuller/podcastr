@@ -45,7 +45,7 @@ function PodcastDetailsPage({ podcast }: PodcastDetailsProps) {
   return (
     <article className={styles.container}>
       <Head>
-        <title>{podcast.title} | PodShare</title>
+        <title>{podcast.title} | Podcastr</title>
       </Head>
 
       <div className={styles.thumbnail}>

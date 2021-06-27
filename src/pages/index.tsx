@@ -38,7 +38,7 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Home | PodShare</title>
+        <title>Home | Podcastr</title>
       </Head>
 
       <section className={styles.latestPodcasts}>
