@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Slider from 'rc-slider'
+import { usePlayer } from '~/hooks'
+import { convertSecondsToTimeString } from '~/utils/date-time'
+
 import 'rc-slider/assets/index.css'
-import { Podcast } from '../../types'
-import { usePlayer } from '../../hooks'
-import { convertSecondsToTimeString } from '../../utils/date-time'
 import styles from './styles.module.scss'
+
+import type { Podcast } from '~/types'
 
 function Player() {
   const { audioRef, ...player } = usePlayer<Podcast>()
