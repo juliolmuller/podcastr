@@ -11,7 +11,7 @@ class App extends NextApp {
     const { Component, pageProps } = this.props
 
     return (
-      <div className={styles.wrapper}>
+      <div className={styles.appWrapper}>
         <ContextProvider>
           <main>
             <Header />
