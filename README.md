@@ -11,7 +11,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/static/v1?labelColor=000000&color=8257E5&label=created%20at&message=Apr%202021" alt="Creation Date" />
+  <img src="https://img.shields.io/static/v1?labelColor=000000&color=8257E5&label=created%20at&message=april%202021" alt="Creation Date" />
 
   <img src="https://img.shields.io/github/last-commit/juliolmuller/podcastr?label=updated%20at&labelColor=000000&color=8257E5" alt="Update Date" />
 
@@ -55,14 +55,14 @@ Application developed during fifth edition of [Next Level Week](https://nextleve
 
 ## :hammer: Setting up the Environment
 
-Make sure to have **Node.js 14+** and **NPM 7** (or **Yarn 1.22**) installed in your machine and its `node` and `npm`/`yarn` shortcuts available through the command line, then use the following command to install dependencies:
+Make sure to have **Node.js 14+** and **Yarn** (**NPM** will do the job as well) installed in your machine and its `node` and `yarn`/`npm` shortcuts available through the command line, then use the following command to install dependencies:
 
 ```bash
-# using NPM
-$ npm install
-
 # using Yarn
 $ yarn
+
+# using NPM
+$ npm install
 ```
 
 This action should also create a `.env` file in the root of the project. If it was not created, use `.env.example` as reference to create it. This is only required to inform the backend URL where the REST API is running at.
@@ -70,12 +70,12 @@ This action should also create a `.env` file in the root of the project. If it w
 When that's set, execute `npm start` to run **JSON Server** and then all the other routines can be run:
 
 ```bash
-$ npm run dev     # run Next development server in port 8080
-$ npm run build   # build Next project tp production
-$ npm run prod    # run Next server on built files (in port 8080)
+$ yarn dev     # run Next development server in port 8080
+$ yarn build   # build Next project tp production
+$ yarn prod    # run Next server on built files (in port 8080)
 ```
 
-If using **Yarn**, just replace `npm run` by `yarn` on the above commands
+If using **Yarn**, just replace `yarn` by `npm run` on the above commands.
 
 ## :zap: Features Implementations
 
