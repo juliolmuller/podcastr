@@ -1,12 +1,14 @@
+import type { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
+
 import { usePlayer } from '~/hooks'
 import api from '~/services/api'
+import type { Podcast } from '~/types'
+
 import styles from './styles.module.scss'
 
-import type { GetStaticPaths, GetStaticProps } from 'next'
-import type { Podcast } from '~/types'
 
 type PodcastDetailsProps = {
   podcast: Podcast

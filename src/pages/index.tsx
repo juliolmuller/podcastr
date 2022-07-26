@@ -1,12 +1,14 @@
+import type { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Link from 'next/link'
 import Image from 'next/image'
-import api from '~/services/api'
+import Link from 'next/link'
+
 import { usePlayer } from '~/hooks'
+import api from '~/services/api'
+import type { Podcast } from '~/types'
+
 import styles from './styles.module.scss'
 
-import type { GetStaticProps } from 'next'
-import type { Podcast } from '~/types'
 
 type HomeProps = {
   latestPodcasts: Podcast[]

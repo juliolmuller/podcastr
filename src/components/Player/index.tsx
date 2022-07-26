@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import Image from 'next/image'
 import Slider from 'rc-slider'
+import { useState } from 'react'
+
 import { usePlayer } from '~/hooks'
 import { convertSecondsToTimeString } from '~/utils/date-time'
 

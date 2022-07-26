@@ -1,5 +1,5 @@
-import { createContext, MutableRefObject, useEffect, useRef, useState } from 'react'
 import shuffleCollection from 'lodash.shuffle'
+import { createContext, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 export interface PlayerInterface<T> {
   audioRef: MutableRefObject<HTMLAudioElement>
