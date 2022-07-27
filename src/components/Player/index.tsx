@@ -3,12 +3,12 @@ import Slider from 'rc-slider'
 import { useState } from 'react'
 
 import { usePlayer } from '~/hooks'
+import { Podcast } from '~/types'
 import { convertSecondsToTimeString } from '~/utils/date-time'
 
 import 'rc-slider/assets/index.css'
 import styles from './styles.module.scss'
 
-import type { Podcast } from '~/types'
 
 function Player() {
   const { audioRef, ...player } = usePlayer<Podcast>()

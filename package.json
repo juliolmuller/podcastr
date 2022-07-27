@@ -17,8 +17,7 @@
     "production": "npm run prod",
     "build": "next build",
     "lint": "next lint --fix",
-    "start": "node server.js",
-    "heroku-postbuild": "echo Skipping \"npm run build\""
+    "start": "node server.js"
   },
   "dependencies": {
     "axios": "~0.27.2",
