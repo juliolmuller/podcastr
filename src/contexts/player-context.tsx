@@ -1,5 +1,5 @@
-import { createContext, MutableRefObject, useEffect, useRef, useState } from 'react'
 import shuffleCollection from 'lodash.shuffle'
+import { createContext, MutableRefObject, useEffect, useRef, useState } from 'react'
 
 export interface PlayerInterface<T> {
   audioRef: MutableRefObject<HTMLAudioElement>
@@ -18,6 +18,7 @@ export interface PlayerInterface<T> {
   shuffle: () => void
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const PlayerContext = createContext({} as PlayerInterface<any>)
 
 export function PlayerProvider({ children }) {
