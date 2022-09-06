@@ -24,7 +24,7 @@
     "date-fns": "^2.29.1",
     "json-server": "~0.17.0",
     "lodash.shuffle": "^4.2.0",
-    "next": "^12.2.3",
+    "next": "^12.2.4",
     "rc-slider": "^10.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
