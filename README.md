@@ -1,5 +1,5 @@
 <h1 title="Move.It" align="center">
-  <img src=".github/icon.png" width="24px" alt="Podcastr" />
+  <img src="https://user-images.githubusercontent.com/44725817/212793095-03d533b2-b7e0-43b4-a9e8-57fd84afb41f.png" width="24px" alt="Podcastr" />
   Podcastr
 </h1>
 
@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <img src=".github/app-overview.png" alt="Application Overview" width="100%">
+  <img src="https://user-images.githubusercontent.com/44725817/212793254-4e97a3f8-dc9e-4e0b-bb4d-76204901fd7a.png" alt="Application Overview" width="100%">
 </p>
 
 Application developed during fifth edition of [Next Level Week](https://nextlevelweek.com/), delivered by [RocketSeat](https://rocketseat.com.br/). The objective was to build a frontend web application to share podcasts and listen to them. The project sought to implement the idea using **React.js** and the fantastic resources of **Next.js**.
