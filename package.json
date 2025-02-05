@@ -1,12 +1,13 @@
 {
   "name": "podcastr",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "license": "MIT",
   "authors": [
     "RocketSeat",
     "Julio L. Muller"
   ],
+  "homepage": "https://jlm-podcastr.vercel.app/",
   "scripts": {
     "postinstall": "node -e \"require('fs').existsSync('.env') || require('fs').copyFileSync('.env.example', '.env')\"",
     "prepare": "husky install",
