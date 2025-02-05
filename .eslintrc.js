@@ -5,9 +5,6 @@ module.exports = {
   },
   extends: [
     'next',
-    'lacussoft',
-    'lacussoft/react',
-    'lacussoft/typescript',
     'next/core-web-vitals',
   ],
   rules: {

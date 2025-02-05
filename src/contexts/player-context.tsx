@@ -18,11 +18,10 @@ export interface PlayerInterface<T> {
   shuffle: () => void
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const PlayerContext = createContext({} as PlayerInterface<any>)
 
 export function PlayerProvider({ children }) {
-  const audioRef = useRef<HTMLAudioElement>()
+  const audioRef = useRef<HTMLAudioElement>(null)
   const [playlist, setPlaylist] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const currentTrack = playlist[currentIndex] ?? null

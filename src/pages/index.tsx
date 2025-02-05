@@ -1,6 +1,6 @@
 import type { GetStaticProps } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Link from 'next/link'
 
 import { usePlayer } from '~/hooks'
@@ -38,7 +38,7 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
   const { addToPlaylist } = usePlayer<Podcast>()
 
   return (
-    <div className={styles.container}>
+    (<div className={styles.container}>
       <Head>
         <title>Home | Podcastr</title>
       </Head>
@@ -60,7 +60,7 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
 
               <div className={styles.podcastDetails}>
                 <Link href={`/podcasts/${podcast.id}`}>
-                  <a>{podcast.title}</a>
+                  {podcast.title}
                 </Link>
                 <p title={podcast.members}>{podcast.members}</p>
                 <span>{podcast.publishedAt}</span>
@@ -108,7 +108,7 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
                 </td>
                 <td>
                   <Link href={`/podcasts/${podcast.id}`}>
-                    <a>{podcast.title}</a>
+                    {podcast.title}
                   </Link>
                 </td>
                 <td>
@@ -134,8 +134,8 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
           </tbody>
         </table>
       </section>
-    </div>
-  )
+    </div>)
+  );
 }
 
 export default HomePage

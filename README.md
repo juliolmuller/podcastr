@@ -55,12 +55,9 @@ Application developed during fifth edition of [Next Level Week](https://nextleve
 
 ## :hammer: Setting up the Environment
 
-Make sure to have **Node.js 14+** and **Yarn** (**NPM** will do the job as well) installed in your machine and its `node` and `yarn`/`npm` shortcuts available through the command line, then use the following command to install dependencies:
+Make sure to have **Node.js 18+** and **NPM** installed in your machine and its `node` and `npm` shortcuts available through the command line, then use the following command to install dependencies:
 
 ```bash
-# using Yarn
-$ yarn
-
 # using NPM
 $ npm install
 ```
@@ -70,12 +67,10 @@ This action should also create a `.env` file in the root of the project. If it w
 When that's set, execute `npm start` to run **JSON Server** and then all the other routines can be run:
 
 ```bash
-$ yarn dev     # run Next development server in port 8080
-$ yarn build   # build Next project tp production
-$ yarn prod    # run Next server on built files (in port 8080)
+$ npm run dev     # run Next development server in port 8080
+$ npm run build   # build Next project tp production
+$ npm run prod    # run Next server on built files (in port 8080)
 ```
-
-If using **Yarn**, just replace `yarn` by `npm run` on the above commands.
 
 ## :zap: Features Implementations
 
