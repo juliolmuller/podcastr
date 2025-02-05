@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import Image from "next/legacy/image"
 import Slider from 'rc-slider'
 import { useState } from 'react'
 
