@@ -1,10 +1,11 @@
-import { format } from 'date-fns'
-import { ptBR } from 'date-fns/locale'
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
+import { type ReactNode } from 'react';
 
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
-function Header() {
-  const currentDate = format(new Date(), 'EEEEEE, d MMM', { locale: ptBR })
+function Header(): ReactNode {
+  const currentDate = format(new Date(), 'EEEEEE, d MMM', { locale: ptBR });
 
   return (
     <header className={styles.container}>
@@ -14,7 +15,7 @@ function Header() {
 
       <span>{currentDate}</span>
     </header>
-  )
+  );
 }
 
-export default Header
+export default Header;

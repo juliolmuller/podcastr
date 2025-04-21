@@ -1,26 +1,25 @@
-
 export interface RawPodcast {
-  id: string
-  title: string
-  members: string
-  thumbnail: string
-  description: string
-  published_at: string
+  description: string;
   file: {
-    url: string
-    type: string
-    duration: number
-  }
+    duration: number;
+    type: string;
+    url: string;
+  };
+  id: string;
+  members: string;
+  published_at: string;
+  thumbnail: string;
+  title: string;
 }
 
 export interface Podcast {
-  id: string
-  title: string
-  members: string
-  thumbnail: string
-  description: string
-  publishedAt: string
-  durationAsString: string
-  duration: number
-  url: string
+  description: string;
+  duration: number;
+  durationAsString: string;
+  id: string;
+  members: string;
+  publishedAt: string;
+  thumbnail: string;
+  title: string;
+  url: string;
 }

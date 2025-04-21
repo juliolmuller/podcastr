@@ -1,12 +1,19 @@
 import nextPlugin from '@next/eslint-plugin-next';
 import anyConfig from 'eslint-config-any';
+import { defineConfig } from 'eslint/config';
 
-export default [
+const serverFilePatterns = ['server.cjs'];
+const baseFilesPatterns = ['**/*.{js,ts,tsx}'];
+
+export default defineConfig([
   ...anyConfig.react,
-
+  ...[...anyConfig.node, ...anyConfig.commonjs].map((config) => ({
+    ...config,
+    files: serverFilePatterns,
+  })),
   {
     ...nextPlugin.flatConfig.coreWebVitals,
-    files: ['**/*.{js,cjs,mjs,jsx,mjsx,ts,mts,tsx,mtsx}'],
+    files: baseFilesPatterns,
   },
   {
     rules: {
@@ -17,6 +24,7 @@ export default [
           allow: ['published_at'],
         },
       ],
+      'jsx-a11y/media-has-caption': 'off',
     },
   },
-];
+]);

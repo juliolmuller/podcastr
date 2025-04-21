@@ -1,15 +1,16 @@
-import NextApp from 'next/app'
+import NextApp from 'next/app';
+import { type ReactElement } from 'react';
 
-import Header from '~/components/Header'
-import Player from '~/components/Player'
-import ContextProvider from '~/contexts'
+import Header from '~/components/Header';
+import Player from '~/components/Player';
+import ContextProvider from '~/contexts';
 
-import '~/global-styles.scss'
-import styles from './styles.module.scss'
+import '~/global-styles.scss';
+import styles from './styles.module.scss';
 
 class App extends NextApp {
-  render() {
-    const { Component, pageProps } = this.props
+  render(): ReactElement {
+    const { Component, pageProps } = this.props;
 
     return (
       <div className={styles.appWrapper}>
@@ -22,8 +23,8 @@ class App extends NextApp {
           <Player />
         </ContextProvider>
       </div>
-    )
+    );
   }
 }
 
-export default App
+export default App;
