@@ -10,7 +10,7 @@ function Header() {
     <header className={styles.container}>
       <img src="/img/logo.svg" alt="logo Podcastr" />
 
-      <p>O melhor para vc ouvir, sempre!</p>
+      <p>O melhor para ouvir podcasts, sempre!</p>
 
       <span>{currentDate}</span>
     </header>
