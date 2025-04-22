@@ -1,32 +1,31 @@
-import Image from "next/legacy/image"
-import Slider from 'rc-slider'
-import { useState } from 'react'
+import Image from 'next/legacy/image';
+import Slider from 'rc-slider';
+import { type ReactNode, useState } from 'react';
 
-import { usePlayer } from '~/hooks'
-import { Podcast } from '~/types'
-import { convertSecondsToTimeString } from '~/utils/date-time'
+import { usePlayer } from '~/hooks';
+import { type Podcast } from '~/types';
+import { convertSecondsToTimeString } from '~/utils/date-time';
 
-import 'rc-slider/assets/index.css'
-import styles from './styles.module.scss'
+import 'rc-slider/assets/index.css';
+import styles from './styles.module.scss';
 
+function Player(): ReactNode {
+  const { audioRef, ...player } = usePlayer<Podcast>();
+  const [currentTime, setCurrentTime] = useState(0);
+  const remainingTime = (player.current?.duration ?? 0) - currentTime;
 
-function Player() {
-  const { audioRef, ...player } = usePlayer<Podcast>()
-  const [currentTime, setCurrentTime] = useState(0)
-  const remainingTime = (player.current?.duration ?? 0) - currentTime
+  function handlePodcastIsLoaded(): void {
+    audioRef.current.currentTime = 0;
 
-  function handlePodcastIsLoaded() {
-    audioRef.current.currentTime = 0
-
-    audioRef.current.ontimeupdate = () => {
-      setCurrentTime(Math.floor(audioRef.current.currentTime))
-    }
+    audioRef.current.ontimeupdate = (): void => {
+      setCurrentTime(Math.floor(audioRef.current.currentTime));
+    };
   }
 
-  function handleSeek(time: number) {
+  function handleSeek(time: number): void {
     if (time < player.current.duration - 2) {
-      audioRef.current.currentTime = time
-      setCurrentTime(time)
+      audioRef.current.currentTime = time;
+      setCurrentTime(time);
     }
   }
 
@@ -134,7 +133,7 @@ function Player() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
 
-export default Player
+export default Player;

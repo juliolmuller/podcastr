@@ -1,15 +1,9 @@
-import { PlayerContext, PlayerProvider } from './player-context'
+import { type ReactNode } from 'react';
 
-function ContextProvider({ children }) {
-  return (
-    <PlayerProvider>
-      {children}
-    </PlayerProvider>
-  )
+import { PlayerContext, PlayerProvider } from './player-context';
+
+function ContextProvider({ children }): ReactNode {
+  return <PlayerProvider>{children}</PlayerProvider>;
 }
 
-export {
-  ContextProvider as default,
-  PlayerContext,
-  PlayerProvider,
-}
+export { ContextProvider as default, PlayerContext, PlayerProvider };

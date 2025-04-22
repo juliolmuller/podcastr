@@ -1,29 +1,29 @@
-import type { GetStaticProps } from 'next'
-import Head from 'next/head'
-import Image from "next/legacy/image"
-import Link from 'next/link'
+import type { GetStaticProps } from 'next';
+import Head from 'next/head';
+import Image from 'next/legacy/image';
+import Link from 'next/link';
+import { type ReactNode } from 'react';
 
-import { usePlayer } from '~/hooks'
-import api from '~/services/api'
-import type { Podcast } from '~/types'
+import { usePlayer } from '~/hooks';
+import api from '~/services/api';
+import type { Podcast } from '~/types';
 
-import styles from './styles.module.scss'
+import styles from './styles.module.scss';
 
-
-type HomeProps = {
-  latestPodcasts: Podcast[]
-  additionalPodcasts: Podcast[]
+interface HomeProps {
+  additionalPodcasts: Podcast[];
+  latestPodcasts: Podcast[];
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const SECONDS_TO_REVALIDATE = 300
+  const SECONDS_TO_REVALIDATE = 300;
   const { data } = await api.get<Podcast[]>('/podcasts', {
     params: {
       _limit: 12,
       _sort: 'published_at',
       _order: 'desc',
     },
-  })
+  });
 
   return {
     revalidate: SECONDS_TO_REVALIDATE,
@@ -31,14 +31,14 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
       latestPodcasts: data.slice(0, 2),
       additionalPodcasts: data.slice(2),
     },
-  }
-}
+  };
+};
 
-function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
-  const { addToPlaylist } = usePlayer<Podcast>()
+function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps): ReactNode {
+  const { addToPlaylist } = usePlayer<Podcast>();
 
   return (
-    (<div className={styles.container}>
+    <div className={styles.container}>
       <Head>
         <title>Home | Podcastr</title>
       </Head>
@@ -59,9 +59,7 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
               />
 
               <div className={styles.podcastDetails}>
-                <Link href={`/podcasts/${podcast.id}`}>
-                  {podcast.title}
-                </Link>
+                <Link href={`/podcasts/${podcast.id}`}>{podcast.title}</Link>
                 <p title={podcast.members}>{podcast.members}</p>
                 <span>{podcast.publishedAt}</span>
                 <span>{podcast.durationAsString}</span>
@@ -107,19 +105,11 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
                   />
                 </td>
                 <td>
-                  <Link href={`/podcasts/${podcast.id}`}>
-                    {podcast.title}
-                  </Link>
+                  <Link href={`/podcasts/${podcast.id}`}>{podcast.title}</Link>
                 </td>
-                <td>
-                  {podcast.members}
-                </td>
-                <td style={{ width: 130 }}>
-                  {podcast.publishedAt}
-                </td>
-                <td>
-                  {podcast.durationAsString}
-                </td>
+                <td>{podcast.members}</td>
+                <td style={{ width: 130 }}>{podcast.publishedAt}</td>
+                <td>{podcast.durationAsString}</td>
                 <td>
                   <button
                     type="button"
@@ -134,8 +124,8 @@ function HomePage({ latestPodcasts, additionalPodcasts }: HomeProps) {
           </tbody>
         </table>
       </section>
-    </div>)
+    </div>
   );
 }
 
-export default HomePage
+export default HomePage;
