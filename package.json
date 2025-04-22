@@ -10,8 +10,9 @@
   "homepage": "https://jlm-podcastr.vercel.app/",
   "scripts": {
     "postinstall": "node -e \"require('fs').existsSync('.env') || require('fs').copyFileSync('.env.example', '.env')\"",
-    "prepare": "husky",
+    "prepare": "bun x husky",
     "commit": "git-cz",
+    "release": "semantic-release",
     "dev": "next dev --port 30303",
     "development": "npm run dev",
     "prod": "next start --port 30303",
@@ -33,6 +34,9 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^11.0.1",
+    "@semantic-release/npm": "^12.0.1",
     "@types/lodash.shuffle": "^4.2.9",
     "@types/node": "^22.14.1",
     "@types/react": "^19.1.2",
@@ -46,6 +50,7 @@
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "sass": "^1.86.3",
+    "semantic-release": "^24.2.3",
     "typescript": "^5.8.3"
   },
   "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e"
