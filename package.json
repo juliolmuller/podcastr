@@ -11,7 +11,7 @@
   "scripts": {
     "postinstall": "node -e \"require('fs').existsSync('.env') || require('fs').copyFileSync('.env.example', '.env')\"",
     "prepare": "bun x husky",
-    "commit": "git-cz",
+    "commit": "commit",
     "release": "semantic-release",
     "dev": "next dev --port 30303",
     "development": "npm run dev",
@@ -34,6 +34,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",
     "@commitlint/config-conventional": "^19.8.0",
+    "@commitlint/prompt-cli": "^19.8.0",
     "@semantic-release/commit-analyzer": "^13.0.1",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.2",
@@ -43,8 +44,6 @@
     "@types/node": "^22.15.2",
     "@types/react": "^19.1.2",
     "@types/react-dom": "^19.1.2",
-    "commitizen": "^4.3.1",
-    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.25.1",
     "eslint-config-any": "^1.1.0",
     "eslint-config-next": "^15.3.1",
