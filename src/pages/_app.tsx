@@ -9,7 +9,7 @@ import '~/global-styles.scss';
 import styles from './styles.module.scss';
 
 class App extends NextApp {
-  render(): ReactElement {
+  public render(): ReactElement {
     const { Component, pageProps } = this.props;
 
     return (
