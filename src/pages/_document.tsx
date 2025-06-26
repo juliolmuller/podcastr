@@ -2,7 +2,7 @@ import BaseDocument, { Head, Html, Main, NextScript } from 'next/document';
 import { type ReactElement } from 'react';
 
 class Document extends BaseDocument {
-  render(): ReactElement {
+  public render(): ReactElement {
     return (
       <Html lang="pt-BR">
         <Head>
