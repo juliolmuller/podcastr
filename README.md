@@ -49,27 +49,28 @@ Application developed during fifth edition of [Next Level Week](https://nextleve
 
 **Development:**
 - [Visual Studio Code](https://code.visualstudio.com/)
-- Node.js routines with NPM
+- [Node.js](https://nodejs.org/) (JS runtime)
+- [Bun](https://bun.sh/) (package manager)
 - TypeScript
 - ESlint
 
 ## :hammer: Setting up the Environment
 
-Make sure to have **Node.js 18+** and **NPM** installed in your machine and its `node` and `npm` shortcuts available through the command line, then use the following command to install dependencies:
+Make sure to have **Node.js 18+** and **Bun** installed in your machine and its `node` and `bun` shortcuts
+available through the command line, then use the following command to install dependencies:
 
 ```bash
-# using NPM
-$ npm install
+$ bun install
 ```
 
 This action should also create a `.env` file in the root of the project. If it was not created, use `.env.example` as reference to create it. This is only required to inform the backend URL where the REST API is running at.
 
-When that's set, execute `npm start` to run **JSON Server** and then all the other routines can be run:
+When that's set, execute `bun start` to run **JSON Server** and then all the other routines can be run:
 
 ```bash
-$ npm run dev     # run Next development server in port 8080
-$ npm run build   # build Next project tp production
-$ npm run prod    # run Next server on built files (in port 8080)
+$ bun run dev     # run Next development server in port 30303
+$ bun run build   # build Next project to production
+$ bun run prod    # run Next server on built files (in port 30303)
 ```
 
 ## :zap: Features Implementations

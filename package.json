@@ -14,9 +14,9 @@
     "commit": "commit",
     "release": "semantic-release",
     "dev": "next dev --port 30303",
-    "development": "npm run dev",
+    "development": "bun run dev",
     "prod": "next start --port 30303",
-    "production": "npm run prod",
+    "production": "bun run prod",
     "build": "next build",
     "lint": "next lint --fix",
     "start": "node server.cjs"
