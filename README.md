@@ -106,3 +106,4 @@ Besides, base project layout & design is available at **[Figma](https://www.figm
 ---
 
 Also checkout the project developed in [NLW #2](https://github.com/juliolmuller/proffy), [NLW #3](https://github.com/juliolmuller/happy), [NLW #4](https://github.com/juliolmuller/move.it) and [NLW #6](https://github.com/juliolmuller/letmeask).
+# Test commit for semantic release
