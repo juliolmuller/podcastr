@@ -18,7 +18,7 @@
     "prod": "next start --port 30303",
     "production": "bun run prod",
     "build": "next build",
-    "lint": "next lint --fix",
+    "lint": "eslint --fix src/ eslint.config.mjs next.config.ts",
     "start": "node server.cjs"
   },
   "dependencies": {

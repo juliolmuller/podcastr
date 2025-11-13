@@ -12,7 +12,7 @@ export default defineConfig([
     files: serverFilePatterns,
   })),
   {
-    ...nextPlugin.flatConfig.coreWebVitals,
+    ...nextPlugin.configs['core-web-vitals'],
     files: baseFilesPatterns,
   },
   {
