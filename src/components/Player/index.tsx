@@ -15,14 +15,19 @@ function Player(): ReactNode {
   const remainingTime = (player.current?.duration ?? 0) - currentTime;
 
   function handlePodcastIsLoaded(): void {
-    audioRef.current.currentTime = 0;
+    if (!audioRef.current) return;
 
+    audioRef.current.currentTime = 0;
     audioRef.current.ontimeupdate = (): void => {
-      setCurrentTime(Math.floor(audioRef.current.currentTime));
+      setCurrentTime(Math.floor(audioRef.current?.currentTime ?? 0));
     };
   }
 
-  function handleSeek(time: number): void {
+  function handleSeek(time: number | number[]): void {
+    if (!audioRef.current) return;
+
+    time = Array.isArray(time) ? time[0] : time;
+
     if (time < player.current.duration - 2) {
       audioRef.current.currentTime = time;
       setCurrentTime(time);
@@ -69,11 +74,13 @@ function Player(): ReactNode {
           <div className={styles.slider}>
             {player.current ? (
               <Slider
+                styles={{
+                  track: { backgroundColor: '#04d361' },
+                  rail: { backgroundColor: '#9f75ff' },
+                  handle: { borderColor: '#04d361', borderWidth: 4 },
+                }}
                 value={currentTime}
                 max={player.current?.duration}
-                trackStyle={{ backgroundColor: '#04d361' }}
-                railStyle={{ backgroundColor: '#9f75ff' }}
-                handleStyle={{ borderColor: '#04d361', borderWidth: 4 }}
                 onChange={handleSeek}
               />
             ) : (

@@ -7,7 +7,7 @@ const api = axios.create({
 });
 
 api.interceptors.response.use((response: AxiosResponse) => {
-  if (response.config.url.match(/\/podcasts/)) {
+  if (response.config?.url?.match(/\/podcasts/)) {
     response.data = Array.isArray(response.data)
       ? response.data.map(transformPodcast)
       : transformPodcast(response.data);

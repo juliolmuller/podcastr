@@ -11,7 +11,7 @@ import {
 
 export interface PlayerInterface<T> {
   addToPlaylist: (tracks: T, immediate?: boolean) => void;
-  audioRef: RefObject<HTMLAudioElement>;
+  audioRef: RefObject<HTMLAudioElement | null>;
   CreatePlaylist: (tracks: T[], startIndex?: number) => void;
   current: T;
   hasNext: boolean;
@@ -26,12 +26,15 @@ export interface PlayerInterface<T> {
   togglePlay: () => void;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const PlayerContext = createContext({} as PlayerInterface<any>);
+interface PlayerProviderProps {
+  children: ReactNode;
+}
 
-export function PlayerProvider({ children }): ReactNode {
+export const PlayerContext = createContext({} as PlayerInterface<unknown>);
+
+export function PlayerProvider({ children }: PlayerProviderProps): ReactNode {
   const audioRef = useRef<ComponentRef<'audio'>>(null);
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState<unknown[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentTrack = playlist[currentIndex] ?? null;
   const hasPrevious = Boolean(playlist[currentIndex - 1]);
@@ -41,7 +44,7 @@ export function PlayerProvider({ children }): ReactNode {
 
   function CreatePlaylist<T>(tracks: T[], startIndex?: number): void {
     setCurrentIndex(startIndex ?? 0);
-    setIsPlaying(!isNaN(startIndex));
+    setIsPlaying(!isNaN(startIndex as number));
     setPlaylist(tracks);
   }
 

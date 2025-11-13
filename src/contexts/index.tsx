@@ -2,7 +2,11 @@ import { type ReactNode } from 'react';
 
 import { PlayerContext, PlayerProvider } from './player-context';
 
-function ContextProvider({ children }): ReactNode {
+interface ContextProviderProps {
+  children: ReactNode;
+}
+
+function ContextProvider({ children }: ContextProviderProps): ReactNode {
   return <PlayerProvider>{children}</PlayerProvider>;
 }
 
