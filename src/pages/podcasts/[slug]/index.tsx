@@ -30,7 +30,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<PodcastDetailsProps> = async ({ params }) => {
   const SECONDS_TO_REVALIDATE = 86400; // 24 hours
-  const { data } = await api.get<Podcast>(`/podcasts/${params.slug}`);
+  const { data } = await api.get<Podcast>(`/podcasts/${params?.slug}`);
 
   return {
     revalidate: SECONDS_TO_REVALIDATE,
