@@ -1,8 +1,8 @@
-import axios, { type AxiosResponse } from 'axios';
+import { type AxiosResponse, create as createHttpClient } from 'axios';
 
 import transformPodcast from './podcast-transformer';
 
-const api = axios.create({
+const api = createHttpClient({
   baseURL: process.env.NEXT_PUBLIC_PODCAST_API,
 });
 
